@@ -1,0 +1,28 @@
+#include <util/delay.h>
+#include <avr/io.h>
+
+
+#define 	F_CPU   1000000UL
+
+
+
+int main()
+ { 
+    DDRC = 0X02;
+    DDRD = 0X04;
+    
+   
+   while (1)
+   {
+    _delay_ms(1000);
+     PORTC &=0X11111101;      //ON - O PC1   R PULL UP
+     PORTD |=0X00000100;              //ON  -1 PD2   R PUPP DOWN
+      
+    _delay_ms(1000);
+     PORTC |=0X00000010;    //OFF  -
+     PORTD &=0X11111011;   //OFF  
+          _delay_ms(1000);
+   }
+      
+   return 0;
+ }

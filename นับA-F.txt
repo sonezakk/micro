@@ -1,0 +1,54 @@
+#include <avr/io.h>
+
+int main()
+
+{
+
+unsigned char TB7SEG[] = {
+
+0b00111111, 0b00000110, 0b01011011, 0b01001111,
+
+0b01100110, 0b01101101, 0b01111101, 0b00000111,
+
+0b01111111, 0b01101111, 0b01110111, 0b01111100,
+
+0b00111001, 0b01011110, 0b01111001, 0b01110001};
+
+uint8_t display, sw1,sw2, count, mask, i, test_bit;
+
+DDRB = 0x00;
+
+DDRC = 0xFF;
+DDRD =  0x00;
+
+while(1)
+
+{
+
+sw1 = PINB;
+sw2 = PIND;
+
+count = 0;
+
+mask = 0x01;
+
+for(i=0;i<8;i++)
+
+{
+test_bit = sw1 & (mask<<i);
+if(test_bit)
+count++;
+test_bit = sw2 & (mask<<i);
+if(test_bit)
+count++;
+
+}
+//count =8-count;
+
+display = TB7SEG[count];
+
+PORTC = ~display;
+
+}
+
+}

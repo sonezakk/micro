@@ -1,0 +1,36 @@
+#include <avr/io.h>
+
+int main()
+
+{
+
+uint8_t d, c, b;
+
+DDRB = 0xFF;
+
+DDRC = 0x00;
+
+DDRD = 0x00;
+
+while (1)
+
+{
+
+d = PIND;
+
+d &= 0b00001111;
+
+c = PINC;
+
+c &= 0b01111000;  //0x78
+ c = c>>=3;   //shif ทางขวา 3 บิต
+
+b = d*c;
+
+PORTB = b;
+
+}
+
+return 0;
+
+}
